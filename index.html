@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, orange, green);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+        }
+        h2 {
+            color: orange;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: darkorange;
+        }
+        .note {
+            font-size: 12px;
+            margin-top: 10px;
+            color: gray;
+        }
+        .back-button {
+            margin-top: 10px;
+            background: gray;
+        }
+        .back-button:hover {
+            background: darkgray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Formulir Pendaftaran</h2>
+        <p>Mohon lakukan pendaftaran sebelum acara</p>
+        <input type="text" id="ayah" placeholder="Nama Ayah/Wali" required>
+        <input type="text" id="ibu" placeholder="Nama Ibu/Wali" required>
+        <input type="text" id="santri" placeholder="Nama Santri" required>
+        <button onclick="submitForm()">DAFTAR</button>
+        <p class="note">YANG DIPERBOLEHKAN MASUK KE DALAM AULA TEMPAT WISUDA HANYA 2 ORANG</p>
+        <button class="back-button" onclick="window.location.href='https://vintation.com/undangan/riyadlulhuda20251?to=Orang-Tua/Wali-Santri'">Kembali ke Menu Awal</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            var ayah = document.getElementById("ayah").value.trim();
+            var ibu = document.getElementById("ibu").value.trim();
+            var santri = document.getElementById("santri").value.trim();
+
+            if (!ayah || !ibu || !santri) {
+                alert("Harap isi semua kolom!");
+                return;
+            }
+
+            var url = "https://script.google.com/macros/s/AKfycbx7A5Zj3Afr7QUu9WhCcBvxhZ0NoJuq_JAK_626NvctQ_3Vm_hUb5_eq8acGOreIp99fA/exec"; 
+            var formData = new FormData();
+            formData.append("ayah", ayah);
+            formData.append("ibu", ibu);
+            formData.append("santri", santri);
+
+            fetch(url, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert("Pendaftaran berhasil!");
+                document.getElementById("ayah").value = "";
+                document.getElementById("ibu").value = "";
+                document.getElementById("santri").value = "";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan, coba lagi nanti.");
+            });
+        }
+    </script>
+</body>
+</html>
